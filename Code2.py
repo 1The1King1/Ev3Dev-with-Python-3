@@ -20,8 +20,8 @@ class Robot(object):
         print("Ângulo: %d" %(self.GY.value()))
         Ang = self.GY.value() + 87
         while Ang != self.GY.value() :
-            self.MD.run_forever(speed_sp = 300)
-            self.ME.run_forever(speed_sp = 100)
+            self.MD.run_forever(speed_sp = 100)
+            self.ME.run_forever(speed_sp = 300)
             self.Led()
         
     def Direita(self) :
@@ -30,8 +30,9 @@ class Robot(object):
             self.GYRO()
     
     def Main(self) :
-        self.MD.run_forever(speed_sp = 300)
-        self.ME.run_forever(speed_sp = 300)
-        self.Direita()
+        while True :
+            self.MD.run_forever(speed_sp = 300)
+            self.ME.run_forever(speed_sp = 300)
+            self.Direita()
         
 Robot().Main()
