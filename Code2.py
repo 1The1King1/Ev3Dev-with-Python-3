@@ -17,15 +17,15 @@ class Robot(object):
             sleep(1)
     
     def GYRO(self) :
-        print(self.GY.value())
+        print("Ângulo: %d" %(self.GY.value()))
         Ang = self.GY.value() + 87
         while Ang != self.GY.value() :
             self.MD.run_forever(speed_sp = 300)
             self.ME.run_forever(speed_sp = 100)
-            self.Leds.set_color(Leds.RIGHT, Leds.RED)
-            self.Leds.set_color(Leds.LEFT, Leds.RED)
+            self.Led()
         
     def Direita(self) :
+        print("Distância: &d" %(self.IR.value()))
         if self.IR.value() <= 10 :
             self.GYRO()
     
