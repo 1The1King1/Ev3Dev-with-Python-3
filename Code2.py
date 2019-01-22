@@ -22,7 +22,8 @@ class Robot(object):
         while Ang != self.GY.value() :
             self.MD.run_forever(speed_sp = 300)
             self.ME.run_forever(speed_sp = 100)
-            self.Led()
+            self.Leds.set_color(Leds.RIGHT, Leds.RED)
+            self.Leds.set_color(Leds.LEFT, Leds.RED)
         
     def Direita(self) :
         if self.IR.value() <= 10 :
