@@ -18,7 +18,7 @@ class Robot(object):
     
     def GYRO(self) :
         print(self.GY.value())
-        Ang = sef.GY.value() + 87
+        Ang = self.GY.value() + 87
         while Ang != self.GY.value() :
             self.MD.run_forever(speed_sp = 300)
             self.ME.run_forever(speed_sp = 100)
@@ -32,4 +32,5 @@ class Robot(object):
         self.MD.run_forever(speed_sp = 300)
         self.ME.run_forever(speed_sp = 300)
         self.Direita()
+        
 Robot().Main()
