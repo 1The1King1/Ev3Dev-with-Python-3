@@ -6,6 +6,7 @@ class Robot(object) :
     def __init__(self) :
         self.rd = LargeMotor("outB")
         self.re = LargeMotor("outA")
+        self.md = MediumMotor("outC")
         self.id = InfraredSensor("in4")
         self.ie = InfraredSensor("in3")
         self.cs = ColorSensor()
@@ -21,7 +22,7 @@ class Robot(object) :
         self.cont = 0
         self.cont1 = 0
 
-    def Conometro(self):
+    def Conometro0(self):
         print("Tempo: %ds" % self.cont1)
         self.cont1 += 1
         sleep(1)
@@ -59,7 +60,7 @@ class Robot(object) :
             self.rd.run_forever(speed_sp = -(self.speed * 0.75))
             self.re.run_forever(speed_sp = self.speed * 0.75)
 
-    def Centralizar(self):
+    def Centralizar0(self):
         if self.gy.value() > self.ang1() :
             self.rd.run_forever(speed_sp = (self.speed * 0.35))
             sleep(0.3)
@@ -71,24 +72,57 @@ class Robot(object) :
             self.rd.run_forever(speed_sp=(self.speed * 0.35))
             sleep(0.3)
 
-    def andar(self) :
+    def Andar0(self) :
         self.rd.run_forever(speed_sp = self.speed)
         self.re.run_forever(speed_sp = self.speed)
-
+   
+    def Virar0(self) :
+        self.rd.run_to_rel_pos(position_sp = 10, speed_sp = (self.speed * 0.5))
+        self.re.run_to_rel_pos(position_sp = 10, speed_sp = (self.speed * 0.5))
+        self.rd.wait_while("running")
+        self.re.wait_while("running")
+        self.ang2 = self.ang1 + 85
+        while self.ang2 > self.ang3 :
+            self.ang3 = gy.value()
+            self.rd.run_forever(speed_sp = self.speed * 0.75)
+            self.re.run_forever(speed_sp = -(self.speed * 0.75))
+            
+    def Virar1(self) :
+        self.rd.run_to_rel_pos(position_sp = 10, speed_sp = (self.speed * 0.5))
+        self.re.run_to_rel_pos(position_sp = 10, speed_sp = (self.speed * 0.5))
+        self.rd.wait_while("running")
+        self.re.wait_while("running")
+        self.ang2 = self.ang1 - 85
+        while self.ang2 < self.ang3 :
+            self.ang3 = gy.value()
+            self.rd.run_forever(speed_sp = -(self.speed * 0.75))
+            self.re.run_forever(speed_sp = self.speed * 0.75)
+            
     def Main(self) :
-        self.Centralizar()
-        self.Conometro()
+        self.Centralizar0()
+        self.Conometro0()
         if self.cs.value() == 6 :
-            self.andar()
+            self.Andar0()
         elif self.cs.value() == 5 :
             self.Red0()
             self.cont += 1
             if self.cont % 2 == 0 :
-                self.andar()
+                self.andar0()
             else :
                 self.Red1()
         elif self.cs.value() == 1 :
             self.Black0()
+        if self.id.alue() > self.ie.value() :
+            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
+            sleep(0.4)
+            self.Virar0()
+            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
+            sleep(0.4)
+        else :
+            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
+            sleep(0.4)
+            self.Virar0()
+            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
 
 Robot().Main()
 
