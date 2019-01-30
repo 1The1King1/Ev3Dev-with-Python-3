@@ -86,6 +86,12 @@ class Robot(object) :
             self.ang3 = gy.value()
             self.rd.run_forever(speed_sp = self.speed * 0.75)
             self.re.run_forever(speed_sp = -(self.speed * 0.75))
+        sleep(0.2)
+        self.rd.run_to_rel_pos(position_sp = 500, speed_sp = (self.speed * 1.5))
+        self.re.run_to_rel_pos(position_sp = 500, speed_sp = (self.speed * 1.5))
+        self.rd.wait_while("running")
+        self.re.wait_while("running")
+        sleep(0.2)
             
     def Virar1(self) :
         self.rd.run_to_rel_pos(position_sp = 10, speed_sp = (self.speed * 0.5))
@@ -97,6 +103,12 @@ class Robot(object) :
             self.ang3 = gy.value()
             self.rd.run_forever(speed_sp = -(self.speed * 0.75))
             self.re.run_forever(speed_sp = self.speed * 0.75)
+        sleep(0.2)
+        self.rd.run_to_rel_pos(position_sp = 500, speed_sp = (self.speed * 1.5))
+        self.re.run_to_rel_pos(position_sp = 500, speed_sp = (self.speed * 1.5))
+        self.rd.wait_while("running")
+        self.re.wait_while("running")
+        sleep(0.2)
             
     def Main(self) :
         self.Centralizar0()
@@ -116,13 +128,13 @@ class Robot(object) :
             self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
             sleep(0.4)
             self.Virar0()
-            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
+            self.md.run_to_rel_pos(position_sp = -165, speed_sp = (self.speed * 0.25))
             sleep(0.4)
         else :
             self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
             sleep(0.4)
-            self.Virar0()
-            self.md.run_to_rel_pos(position_sp = 165, speed_sp = (self.speed * 0.25))
+            self.Virar1()
+            self.md.run_to_rel_pos(position_sp = -165, speed_sp = (self.speed * 0.25))
 
 Robot().Main()
 
