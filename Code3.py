@@ -134,7 +134,6 @@ class Robozin(object):
             elif self.matriz[self.colorDIR][0] == "E" :
                 self.curvaE()
             elif self.matriz[self.colorDIR][0] == "F" :
-                if 
                 self.main()
             
 
