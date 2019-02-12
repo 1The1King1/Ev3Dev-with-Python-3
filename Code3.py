@@ -84,7 +84,7 @@ class Robozin(object):
             self.matriz.remove(self.matriz[self.colorDIR2]["F"])
 
     def maincurva(self):
-        if (self.colorDIR.value() != 6 and self.colorESQ.value() != 6) or (self.colorDIR.value() != 0 and self.colorESQ.value() != 0) :
+        if (self.colorDIR.value() != 6 and self.colorESQ.value() != 6) and (self.colorDIR.value() != 0 and self.colorESQ.value() != 0) :
             global self.colorDIR2 == self.colorDIR.value()
             global self.colorESQ2 == self.colorESQ.value()
             self.motor_D.run_to_rel_pos(position_sp = 500, speed_sp = self.velocidadeG)
